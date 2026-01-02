@@ -13,5 +13,4 @@ yarn-error.log*
 # Build
 dist/
 
-# Uploaded images (DO NOT COMMIT)
-backend/upload/
+
