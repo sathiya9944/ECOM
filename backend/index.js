@@ -45,7 +45,7 @@ app.use("/images", express.static("upload/images"));
 app.post("/upload", upload.single("product"), (req, res) => {
   res.json({
     success: 1,
-    image_url: `http://localhost:${process.env.PORT}/images/${req.file.filename}`,
+    image_url: `${process.env.BASE_URL}/images/${req.file.filename}`,
   });
 });
 
@@ -229,7 +229,8 @@ const fetchUser = async (req, res, next) => {
     res.status(401).send({ errors: "Please authenticate using valid token" });
   } else {
     try {
-      const data = jwt.verify(token, "secret_ecom");
+      const data = jwt.verify(token, process.env.JWT_SECRET);
+
       (req.user = data.user), next();
     } catch (error) {
       res.status(401).send({ errors: "Please authenticate using valid token" });
@@ -268,10 +269,13 @@ app.post("/getcart", fetchUser, async (req, res) => {
   res.json(userData.cartData);
 });
 
-app.listen(process.env.PORT, (error) => {
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, (error) => {
   if (!error) {
-    console.log("server start on port " + process.env.PORT);
+    console.log("Server running on port " + PORT);
   } else {
     console.log("Error : " + error);
   }
 });
+
