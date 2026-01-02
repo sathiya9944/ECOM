@@ -13,9 +13,7 @@ app.use(cors());
 
 //Database connection with mongodb
 
-// mongoose.connect(
-//   "mongodb+srv://sathiya9944:mca094@cluster0.gsp466k.mongodb.net/e-commerce"
-// );
+
 
 mongoose
   .connect(process.env.MONGO_URI)
